@@ -41,6 +41,7 @@ dnf install -y nodejs
 firewall-cmd --add-port 8080/tcp --permanent
 firewall-cmd --add-port 2022/tcp --permanent
 firewall-cmd --permanent --zone=trusted --change-interface=docker0
+firewall-cmd --permanent --zone=trusted --change-interface=pterodactyl0
 firewall-cmd --reload
 ```
 
