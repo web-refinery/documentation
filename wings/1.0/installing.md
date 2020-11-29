@@ -78,16 +78,11 @@ On most systems, docker will be unable to setup swap space, you can check if thi
 If it outputs `WARNING: No swap limit support` near the bottom, this is the case. Enabling swap is completely optional,
 but we recommended doing it if you will be hosting for others, and to prevent OOM errors.
 
-To do so, open `/etc/default/grub` as a root user, and find the line starting with `GRUB_CMDLINE_LINUX_DEFAULT`. Make
-sure the line includes `swapaccount=1`.
+To do so, create `/etc/default/grub.d/pterodactyl.cfg`: 
 
-After doing that, simply run `sudo update-grub` followed by `sudo reboot` to restart the server and have swap enabled.
-Below is an example of what the line should look like, _do not copy this line verbatium, it often has additional
-OS specific parameters._
+`echo 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT swapaccount=1"' > /etc/default/grub.d/pterodactyl.cfg`
 
-``` text
-GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
-```
+After doing that, run `update-grub && reboot` to restart the server and have swap enabled. Once rebooted check `docker info` again, the warning should be gone now.
 
 ## Installing Wings
 The first step for installing Wings is to make sure we have the required directory structure setup. To do so,
